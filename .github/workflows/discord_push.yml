@@ -1,0 +1,17 @@
+name: Discord Push Notification
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  notify_push:
+    uses: novem-code/github-actions/.github/workflows/discord_push.yml@main
+    with:
+      branch_name: ${{ github.ref }}
+      commit_message: ${{ github.event.head_commit.message }}
+      commit_url: ${{ github.event.head_commit.url }}
+      repo_full_name: ${{ github.repository }}
+    secrets:
+      discord_webhook: ${{ secrets.DISCORD_WEBHOOK_URL }}
